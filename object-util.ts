@@ -9,28 +9,32 @@ type Entries<T> = {
   [K in keyof T]: [K, T[K]];
   }[keyof T][];
 const entries = Object.entries as <T>(o: T) => Entries<T>;
+// console.log(entries(obj))
 
 // object.keys
-type Keys = [key: string]
-const keys = Object.keys as <T>(o: T) => Keys;
+type Keys<T> = (keyof T)[];
+const keys = Object.keys as <T>(o: T) => Keys<T>;
+// console.log(keys(obj))
 
 // object.values
-type Values<T> = {
-[K in keyof T] : T[K]
-}
+// type Values<T> = {
+//   [K in keyof T] : T[K]
+// };
+type Values<T> = T[keyof T][];
 const values = Object.values as <T>(o: T) => Values<T>;
+console.log(values(obj))
 
 const author = { name: "Steve", age: 93, height: 241 }
-type Entry<T> = {
+type FilterEntries<T> = {
   [K in keyof T]: [K, T[K]]
 }[keyof T]
 
 const filterObject = <T extends object>(
   obj: T,
-  fn: (value: Entry<T>, index: number, array: Entry<T>[]) => Boolean
+  fn: (value: FilterEntries<T>, index: number, array: FilterEntries<T>[]) => Boolean
 ) => {
   return Object.fromEntries(
-    (Object.entries(obj) as Entry<T>[]).filter(fn)
+    (Object.entries(obj) as FilterEntries<T>[]).filter(fn)
   ) as Partial<T>
 }
 const filterbyKey = filterObject(obj, ([k, v]) => k === "aa")
