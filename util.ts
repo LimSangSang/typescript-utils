@@ -24,7 +24,6 @@ type Values<T> = T[keyof T][];
 const values = Object.values as <T>(o: T) => Values<T>;
 console.log(values(obj))
 
-const author = { name: "Steve", age: 93, height: 241 }
 type FilterEntries<T> = {
   [K in keyof T]: [K, T[K]]
 }[keyof T]
