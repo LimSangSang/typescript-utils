@@ -17,7 +17,7 @@ const getAutoHyphenNumber = (number: string, phone: boolean) => {
     if (!validNumber) return '유효한 번호가 아닙니다.'
     const autoHyphenNumber= number
         .replace(/[^0-9]/g, '')
-        .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+        .replace(/(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
         return autoHyphenNumber
 }
-console.log(getAutoHyphenNumber('05146667293', false))
+console.log(getAutoHyphenNumber('01046667293', true)) // true: 핸드폰 번호, false: 지역번호
